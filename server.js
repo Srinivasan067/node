@@ -1,8 +1,12 @@
+require('dotenv').config()
+
 const express = require('express');
 const app = express();
 const Product = require('./models/Productmodel')
 const mongoose =require('mongoose');
 
+
+const Mongourl = process.env.MONGO_URL
 app.use(express.json())
 app.get('/', (req, res)=>{
     res.send("hey i am running on port 3000")
@@ -82,7 +86,7 @@ app.delete('/product/:id', async(req,res)=>{
 })
 mongoose.set('strictQuery', false)
 
-mongoose.connect('mongodb+srv://test:test123@cluster0.ixharx9.mongodb.net/Node?retryWrites=true&w=majority')
+mongoose.connect(Mongourl)
 .then(()=>{
     console.log('connected to mongodb');
     app.listen(3000, ()=> {
